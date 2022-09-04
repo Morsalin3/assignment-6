@@ -32,3 +32,8 @@ ul:hover{
     color: #5D5FEF;
     /* background-color: #9698ef; */
 }
+#detail-categorie button {
+    background-color: #5D5FEF;
+    color: whitesmoke;
+    font-weight: bold;
+}

@@ -31,7 +31,7 @@ const displayCategoriesDetail = (categorieDetail) =>{
     const detailCategorie = document.getElementById('detail-categorie');
     detailCategorie.innerHTML= ''
     categorieDetail.forEach(categorie => {
-        console.log(categorie);
+        // console.log(categorie);
     const detailCategorieDiv = document.createElement('card');
     detailCategorieDiv.innerHTML = `
     <div class="row g-0 mb-3">
@@ -40,18 +40,18 @@ const displayCategoriesDetail = (categorieDetail) =>{
         </div>
         <div class="col-8">
             <div class="card-body">
-            <h5 class="card-title py-3">${categorie.title.length > 100 ? 
-                categorie.title.slice(0 , 100) + '...' : categorie.title}</h5>
-                        <p>${categorie.details}</p>
-                    <div class=" d-flex justify-content-around ">
-                        <div  class=" d-flex align-items-center">
-                        <img src="${categorie.author.img}" class="img-fluid rounded-circle" style="width:10%">
-                        <h5 class="px-1">${categorie.author.name ? categorie.author.name : 'not found' }</h5>
+            <h5 class="card-title py-3">${categorie.title}</h5>
+                        <p>${categorie.details.length > 500 ? categorie.details.slice(0 , 500) + '...' : categorie.details}</p>
+                    <div class=" d-flex justify-content-between ">
+                        <div  class=" d-flex align-items-center w-25">
+                        <img src="${categorie.author.img}" class="img-fluid rounded-circle d-inline" style="width:25%">
+                        <h5 class="px-1 d-inline">${categorie.author.name ? categorie.author.name : 'Not Data Found' }</h5>
                         </div>
                         <div class="d-flex align-items-center  ">
-                        <i class="fa-regular fa-eye mx-1"></i> ${categorie.total_view}M
+                        <i class="fa-regular fa-eye mx-1"></i> ${categorie.total_view ? categorie.total_view : 'No Data Found'}M
                         </div>
-                        <button>Detail</button>
+                        <button onclick="loadCategoryDetails('${categorie._id}')" href="#" class="btn px-3 rounded" data-bs-toggle="modal" data-bs-target="#categoryDetailModal">Show Details</button>
+
                     </div>
             </div>
         </div>
@@ -59,6 +59,27 @@ const displayCategoriesDetail = (categorieDetail) =>{
     `;
     detailCategorie.appendChild(detailCategorieDiv);
     });
+}
+
+const loadCategoryDetails = async news_id =>{
+    const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayCategoryDetails(data.data[0]);
+}
+
+const displayCategoryDetails = category =>{
+    console.log(category);
+    const modalTitle = document.getElementById('categoryDetailModalLabel');
+    modalTitle.innerText = category.title;
+    const categoryDetails = document.getElementById('category-details');
+    categoryDetails.innerHTML = `
+    <p>Name:${category.author.name ? category.author.name : 'No Data Found'}</p>
+    <p>Published Date:${category.author.published_date}</p>
+    <p>Total View:<i class="fa-regular fa-eye mx-1"></i> ${category.total_view ? category.total_view : 'No Data Found'}M</p>
+   
+
+    `;
 }
 
 loadCatergories();
