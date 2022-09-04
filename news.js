@@ -1,8 +1,8 @@
 const loadCatergories = () => {
-    // const url = `https://openapi.programming-hero.com/api/news/categories`
     fetch('https://openapi.programming-hero.com/api/news/categories')
     .then(res => res.json())
     .then(data => displayCategoris(data.data.news_category))
+    .catch(error => console.log(error));
 }
 
 const displayCategoris = categories =>{
@@ -11,12 +11,24 @@ const displayCategoris = categories =>{
         // console.log(categorie);
         const categoriesUl = document.createElement('ul');
         categoriesUl.innerHTML =`
-        <li onclick="loadCatergoriesDetail('${categorie.category_id}')">${categorie.category_name }</li>
+        <li id="loader-field" onclick="loadCatergoriesDetail('${categorie.category_id}')">${categorie.category_name }</li>
         `;
         allCategories.appendChild(categoriesUl);
 
     });
+    
 }
+
+
+
+    // const searchField = document.getElementById('loader-field').addEventListener('click', function(){
+
+    //     toggleSpinner(true);
+    //     loadCatergories(searchField);
+    // });
+    
+
+
 
 const loadCatergoriesDetail = (category_id) =>{
     const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
@@ -24,6 +36,7 @@ const loadCatergoriesDetail = (category_id) =>{
     fetch(url)
     .then(res=>res.json())
     .then(data=>displayCategoriesDetail(data.data))
+    .catch(error => console.log(error));
 }
 
 const displayCategoriesDetail = (categorieDetail) =>{
@@ -59,8 +72,22 @@ const displayCategoriesDetail = (categorieDetail) =>{
     `;
     detailCategorie.appendChild(detailCategorieDiv);
     });
+  //    stop loader / spinner
+    toggleSpinner(false);
 }
 
+//    toggle spinner section 
+const toggleSpinner = isLoading =>{
+    const loaderSection = document.getElementById('loader');
+    if(isLoading){
+        loaderSection.classList.remove('d-none')
+    }
+    else{
+        loaderSection.classList.add('d-none')
+    }
+}
+
+        // Modal Details here 
 const loadCategoryDetails = async news_id =>{
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
     const res = await fetch(url);
