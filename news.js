@@ -8,29 +8,22 @@ const loadCatergories = () => {
 const displayCategoris = categories =>{
     const allCategories = document.getElementById('categoris-container')
     categories.forEach(categorie => {
-        // console.log(categorie);
-        const categoriesUl = document.createElement('ul');
-        categoriesUl.innerHTML =`
-        <li id="loader-field" onclick="loadCatergoriesDetail('${categorie.category_id}')">${categorie.category_name }</li>
+     // console.log(categorie);
+     const categoriesUl = document.createElement('ul');
+    categoriesUl.innerHTML =`
+    <li id="loader-field" onclick="loadCatergoriesDetail('${categorie.category_id}')">${categorie.category_name }</li>
         `;
         allCategories.appendChild(categoriesUl);
 
     });
     
 }
-
-
-
-    // const searchField = document.getElementById('loader-field').addEventListener('click', function(){
-
-    //     toggleSpinner(true);
-    //     loadCatergories(searchField);
-    // });
     
 
 
 
 const loadCatergoriesDetail = (category_id) =>{
+    toggleSpinner(true)
     const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
     // console.log(category_id)
     fetch(url)
@@ -40,6 +33,7 @@ const loadCatergoriesDetail = (category_id) =>{
 }
 
 const displayCategoriesDetail = (categorieDetail) =>{
+    toggleSpinner(false);
     // console.log(categorieDetail);
     const detailCategorie = document.getElementById('detail-categorie');
     detailCategorie.innerHTML= ''
@@ -72,8 +66,7 @@ const displayCategoriesDetail = (categorieDetail) =>{
     `;
     detailCategorie.appendChild(detailCategorieDiv);
     });
-  //    stop loader / spinner
-    toggleSpinner(false);
+    
 }
 
 //    toggle spinner section 
@@ -87,6 +80,7 @@ const toggleSpinner = isLoading =>{
     }
 }
 
+
         // Modal Details here 
 const loadCategoryDetails = async news_id =>{
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
@@ -96,7 +90,7 @@ const loadCategoryDetails = async news_id =>{
 }
 
 const displayCategoryDetails = category =>{
-    console.log(category);
+    // console.log(category);
     const modalTitle = document.getElementById('categoryDetailModalLabel');
     modalTitle.innerText = category.title;
     const categoryDetails = document.getElementById('category-details');
