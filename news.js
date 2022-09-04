@@ -47,7 +47,7 @@ const displayCategoriesDetail = (categorieDetail) =>{
         </div>
         <div class="col-8">
             <div class="card-body">
-            <h5 class="card-title py-3">${categorie.title}</h5>
+            <h5 class="card-title py-3 text-dark">${categorie.title}</h5>
                         <p>${categorie.details.length > 500 ? categorie.details.slice(0 , 500) + '...' : categorie.details}</p>
                     <div class=" d-flex justify-content-between ">
                         <div  class=" d-flex align-items-center w-25">
