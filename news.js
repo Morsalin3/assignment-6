@@ -95,6 +95,7 @@ const displayCategoryDetails = category =>{
     modalTitle.innerText = category.title;
     const categoryDetails = document.getElementById('category-details');
     categoryDetails.innerHTML = `
+    <img src=" ${category.thumbnail_url}">
     <p>Name:${category.author.name ? category.author.name : 'No Data Found'}</p>
     <p>Published Date:${category.author.published_date}</p>
     <p>Total View:<i class="fa-regular fa-eye mx-1"></i> ${category.total_view ? category.total_view : 'No Data Found'}M</p>
